@@ -7,10 +7,12 @@ import session, { login, logout } from "../stores/session";
     <a class="button is-info">
       <strong>Sign up</strong>
     </a>
-    <a class="button is-link" @click="login('Bobby', 'Hill')"> Log in </a>
+    <a class="button is-link" @click="login('Bobby', 'Hill')"
+      ><strong>Log in</strong></a
+    >
   </div>
   <div v-else>
-    Welcome {{ session.user.firstName }} {{ session.user.lastName }} (<a
+    Welcome, {{ session.user.firstName }} {{ session.user.lastName }} (<a
       @click="logout()"
     >
       Log out </a
