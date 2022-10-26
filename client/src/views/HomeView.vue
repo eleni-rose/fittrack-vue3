@@ -1,9 +1,11 @@
-<script setup lang="ts">
-import TheWelcome from "../components/TheWelcome.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <main>
-    <TheWelcome />
+    <div class="columns">
+      <div class="column is-one-third">First column</div>
+      <div class="column is-one-third">Second column</div>
+      <div class="column is-one-third">Third column</div>
+    </div>
   </main>
 </template>
