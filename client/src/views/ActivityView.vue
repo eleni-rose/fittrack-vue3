@@ -1,7 +1,19 @@
+<script setup lang="ts">
+import session, { login, logout } from "../stores/session";
+</script>
+
 <template>
   <div class="columns">
     <div class="column is-half is-offset-one-quarter">
-      <div class="activity">
+
+      <div class="activity" v-if="session.user == null">
+        <h1 class="has-text-centered">
+          Please <router-link to="/login"> log in </router-link>
+          to see activity feed.
+        </h1>
+      </div>
+
+      <div class="activity" v-if="session.user !== null">
         <div class="card">
           <div class="card-content">
             <div class="media">
@@ -30,7 +42,7 @@
       </div>
 
       <div class="activity">
-        <div class="card">
+        <div class="card" v-if="session.user !== null">
           <div class="card-content">
             <div class="media">
               <div class="media-left">
@@ -54,7 +66,7 @@
         </div>
       </div>
 
-      <div class="activity">
+      <div class="activity" v-if="session.user !== null">
         <div class="card">
           <div class="card-content">
             <div class="media">
@@ -81,7 +93,7 @@
         </div>
       </div>
 
-      <div class="activity">
+      <div class="activity" v-if="session.user !== null">
         <div class="card">
           <div class="card-content">
             <div class="media">
