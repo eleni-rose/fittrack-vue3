@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import LoginBadge from "./NavLogin.vue";
+import  LoginBadge from "./NavLogin.vue";
 
 let isActive = ref(false);
 </script>
@@ -26,15 +26,21 @@ let isActive = ref(false);
 
       <div id="navbar" class="navbar-menu" :class="{ 'is-active': isActive }">
         <div class="navbar-start">
-          <router-link to="/" class="navbar-item"> Home </router-link>
+          <router-link to="/" class="navbar-item"> 
+            Home 
+          </router-link>
 
           <router-link class="navbar-item" to="/activity">
             Activity
           </router-link>
 
-          <router-link class="navbar-item" to="/statistics">
-            Statistics
+          <router-link class="navbar-item" to="/profile">
+            My Profile
           </router-link>
+
+          <a class="navbar-item">
+            <input class="input is-rounded " type="text" placeholder="Search FitTrack">
+          </a>
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link"> More </a>
@@ -55,3 +61,13 @@ let isActive = ref(false);
     </div>
   </nav>
 </template>
+
+
+<style scoped>
+navbar-item {
+  transition: background-color 2s;
+}
+navbar-item:hover {
+  background-color: blue;
+}
+</style>

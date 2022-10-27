@@ -5,6 +5,7 @@ import NavFooterVue from "./components/NavFooter.vue";
 </script>
 
 <template>
+
   <header>
     <NavBarVue/>
   </header>
@@ -12,7 +13,9 @@ import NavFooterVue from "./components/NavFooter.vue";
   <div class="container">
     <RouterView/>
   </div>
+
   <footer>
     <NavFooterVue/>
   </footer>
+
 </template>
