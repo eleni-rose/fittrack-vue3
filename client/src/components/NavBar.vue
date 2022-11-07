@@ -61,13 +61,3 @@ let isActive = ref(false);
     </div>
   </nav>
 </template>
-
-
-<style scoped>
-navbar-item {
-  transition: background-color 2s;
-}
-navbar-item:hover {
-  background-color: blue;
-}
-</style>
