@@ -1,5 +1,5 @@
 const express = require('express');
-const activity = require('../models/activity');
+const activity = require('../models/post');
 
 const app = express.Router();
 

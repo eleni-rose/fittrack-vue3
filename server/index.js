@@ -1,7 +1,23 @@
+const { triggerAsyncId } = require('async_hooks');
 const express = require('express')
 const app = express()
 
-const activityController = require('./controllers/activity'); // always have requires at the top of the file
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/fit_track', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}
+)
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("connected to database");
+});
+
+//const activityController = require('./controllers/activity'); // always have requires at the top of the file
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -31,7 +47,7 @@ app
 .get('/', (req, res) => {
     res.status(200).send('hello');
 })
-.use('api/activity', activityController) 
+//.use('api/activity', activityController) 
 
 ////
 
