@@ -6,9 +6,7 @@ import session, { login, logout } from "../stores/session";
   <main>
     <div class="columns">
       <div class="column">
-        <h1 class="is-size-1 has-text-centered">
-          Welcome back.
-        </h1>
+        <h1 class="is-size-1 has-text-centered">Welcome back.</h1>
       </div>
     </div>
   </main>

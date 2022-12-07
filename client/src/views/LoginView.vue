@@ -9,11 +9,19 @@ import session, { login, logout } from "../stores/session";
         <div class="card">
           <div class="card-content">
             <h1 class="has-text-centered">
-              <a class="button is-light is-rounded" @click="login('Jesse', 'Pinkman')">Sign in with Google</a>
+              <a
+                class="button is-light is-rounded"
+                @click="login('Jesse', 'Pinkman')"
+                >Sign in with Google</a
+              >
             </h1>
 
             <h1 class="has-text-centered">
-              <a class="button is-light is-rounded" @click="login('Walter', 'White')">Sign in with Apple</a>
+              <a
+                class="button is-light is-rounded"
+                @click="login('Walter', 'White')"
+                >Sign in with Apple</a
+              >
             </h1>
           </div>
         </div>
