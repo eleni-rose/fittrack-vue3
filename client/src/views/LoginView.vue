@@ -1,28 +1,41 @@
 <script setup lang="ts">
-import session, { login, logout } from "../stores/session";
+import { login, logout } from "../stores/session";
+import { ref } from 'vue';
+
+const email=ref('');
+const password = ref('');
+
 </script>
 
 <template>
   <main>
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
+
         <div class="card">
           <div class="card-content">
-            <h1 class="has-text-centered">
-              <a
-                class="button is-light is-rounded"
-                @click="login('Jesse', 'Pinkman')"
-                >Sign in with Google</a
-              >
-            </h1>
 
-            <h1 class="has-text-centered">
-              <a
-                class="button is-light is-rounded"
-                @click="login('Walter', 'White')"
-                >Sign in with Apple</a
-              >
-            </h1>
+            <form class ="box" @submit.prevent="login(email, password)">
+              <div class="field">
+
+                <label class="label">Email</label>
+                <div class ="control">
+                  <input class="input" 
+                         type="email"
+                         placeholder="example@gmail.com"
+                         v-model="email">
+                </div>
+
+                <label class="label">Password</label>
+                <div class ="control">
+                  <input class="input" 
+                         type="password"
+                         placeholder="Password"
+                         v-model="password">
+                </div>
+
+              </div>
+            </form>
           </div>
         </div>
       </div>

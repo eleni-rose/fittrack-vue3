@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import session, { login, logout } from "../stores/session";
+  import { RouterLink } from 'vue-router';
+  import session, { login, logout } from "../stores/session";
 </script>
 
 <template>
@@ -15,13 +16,17 @@ import session, { login, logout } from "../stores/session";
 
   </div>
   
-  <div v-else>
-    Welcome, {{ session.user.firstName }} {{ session.user.lastName }} (<a
-      @click="logout()"
-    >
-      Log out </a
-    >)
+  <div v-else class = "userProfile">
+    <span>
+    
+      {{ session.user.profilePic }} 
+      ({{ session.user.displayName }})
+    
+    </span>
+
+    (<a @click="logout()" > Log out </a>)
   </div>
+
 </template>
 
 <style scoped></style>
