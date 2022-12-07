@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import  LoginBadge from "./NavLogin.vue";
+import LoginBadge from "./NavLogin.vue";
 
 let isActive = ref(false);
 </script>
@@ -26,7 +26,7 @@ let isActive = ref(false);
 
       <div id="navbar" class="navbar-menu" :class="{ 'is-active': isActive }">
         <div class="navbar-start">
-          <router-link to="/" class="navbar-item"> 
+          <router-link to="/" class="navbar-item">
             Home 
           </router-link>
 
