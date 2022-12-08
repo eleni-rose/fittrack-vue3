@@ -15,26 +15,33 @@ const password = ref('');
         <div class="card">
           <div class="card-content">
 
-            <form class ="box" @submit.prevent="login(email, password)">
+            <form @submit.prevent="login(email, password)">
+              
               <div class="field">
 
                 <label class="label">Email</label>
                 <div class ="control">
-                  <input class="input" 
-                         type="email"
-                         placeholder="example@gmail.com"
-                         v-model="email">
+                  <input 
+                    class="input" 
+                    type="email"
+                    placeholder="example@gmail.com"
+                    v-model="email">
                 </div>
+              </div>
 
+              <div class="field">
                 <label class="label">Password</label>
                 <div class ="control">
-                  <input class="input" 
-                         type="password"
-                         placeholder="Password"
-                         v-model="password">
+                  <input 
+                    class="input" 
+                    type="password"
+                    placeholder="Password"
+                    v-model="password">
                 </div>
-
               </div>
+
+              <button class="button is-info">Log in</button>
+
             </form>
           </div>
         </div>

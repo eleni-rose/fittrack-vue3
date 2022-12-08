@@ -4,7 +4,10 @@
 </script>
 
 <template>
-  <div class="buttons" v-if="session.user == null">
+
+  <!-- If no user is logged in display sign up / sign in buttons -->
+
+  <div v-if="session.user == null" class="buttons">
 
     <a class="button is-info">
       <strong>Sign up</strong>
@@ -16,6 +19,8 @@
 
   </div>
   
+  <!-- If user is logged in display profile picture and display name -->
+
   <div v-else class = "userProfile">
     <span>
     
