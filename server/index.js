@@ -17,26 +17,10 @@ mongoose.connect('mongodb://localhost:27017/fittrack', { useNewUrlParser: true, 
         console.log(err)
     })
 
-//const activityController = require('./controllers/activity');
-
-app.use('/', express.static('./client/dist'));
-
-app.use((err, req, res, next) => {
-    console.log(err);
-    res.status(err.httpCode ?? 500).send({
-        message: err.message ?? 'Something went wrong.',
-        status: err.httpCode ?? 500
-    });
-})
-
-app
-.get('/', (req, res) => {
-    res.status(200).send('hello');
-})
-//.use('api/activity', activityController) 
-
-app.get('*', (req, res) => {
-    res.sendFile('index.html', {root: './client/dist'});
+app.get('/activity', async (req, res) => {
+    const posts = await Post.find({})
+    console.log(posts)
+    res.render('activity/index')
 })
 
 app.listen(port, () => {
