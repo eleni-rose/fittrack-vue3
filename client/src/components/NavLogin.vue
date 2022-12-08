@@ -9,12 +9,12 @@
 
   <div v-if="session.user == null" class="buttons">
 
-    <a class="button is-info">
-      <strong>Sign up</strong>
-    </a>
+    <router-link class="navbar-item" to="/signup">
+    <a class="button is-info is-rounded">Sign up</a>
+    </router-link>
 
     <router-link class="navbar-item" to="/login">
-      <a class="button is-info">Sign in</a>
+      <a class="button is-info is-rounded">Sign in</a>
     </router-link>
 
   </div>

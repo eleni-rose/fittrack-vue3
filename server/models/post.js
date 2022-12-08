@@ -1,13 +1,31 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const data = require('..data/posts.json');
 
-const PostSchema = new Schema({
-    displayName: String,
-    username: String,
-    profilePic: Image,
-    content: String,
-    image: Image,
+const postSchema = new mongoose.Schema({
+    displayName: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    profilePic: {
+        type: String,
+        required: false
+    },
+    textContent: {
+        type: String,
+        required: true
+    },
+    tagContent: {
+        type: String,
+        required: false
+    },
+    imgContent: {
+        type: String,
+        required: false
+    },
 })
 
-module.exports = mongoose.model('Post', PostSchema);
+const Post = mongoose.model('Post', postSchema);
+module.exports = Post;

@@ -13,6 +13,11 @@ let isActive = ref(false);
   <nav class="navbar is-transparent has-shadow" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
+
+        <a class="navbar-item" href="/" alt="Brand">
+          <img src="@/assets/images/weight.png">
+        </a>
+
         <a :class="{ 'is-active': isActive }" @click="isActive = !isActive" role="button" class="navbar-burger"
           aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
