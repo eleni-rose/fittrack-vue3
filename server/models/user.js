@@ -1,8 +1,8 @@
-const data = require('../data/posts.json');
+const data = require('../data/users.json');
 const { connect } = require('./mongo');
 const { ObjectId } = require('mongodb');
 
-const COLLECTION_NAME = 'posts';
+const COLLECTION_NAME = 'users';
 
 
 async function collection() {
@@ -10,47 +10,47 @@ async function collection() {
     return client.db('fittrack').collection(COLLECTION_NAME);
 }
 
-async function getPosts() {
+async function getUsers() {
     const db = await collection();
     const data = await db.find().toArray()
-    return { total: data.length, limit: data.length, posts: data };
+    return { total: data.length, limit: data.length, users: data };
 }
 
-async function getPost(id) {
+async function getUserName() {
+    const db = await collection();
+    const data = await db.distinct('username')
+    return data;
+}
+
+async function getDisplayName() {
+    const db = await collection();
+    const data = await db.distinct('displayName')
+    return data;
+}
+
+async function getUser(id) {
     const db = await collection();
     const data = await db.findOne({ _id: new ObjectId(id) })
     return data;
 }
 
-async function getTag() {
+async function addUser(user) {
     const db = await collection();
-    const data = await db.distinct('postTag')
-    return data;
-}
-
-async function getTimeDate() {
-    const db = await collection();
-    const data = await db.distinct('timeDate')
-    return data;
-}
-
-async function addPost(post) {
-    const db = await collection();
-    const result = await db.insertOne(post)
+    const result = await db.insertOne(user)
     return result;
 }
 
-async function updatePost(id, post){
+async function updateUser(id, user){
     const db = await collection();
-    delete post._id;
+    delete user._id;
     const result = await db.findOneAndUpdate(
         { _id: new ObjectId(id) },
-        { $set: post },
+        { $set: user },
         { returnDocument: 'after' })
     return result.value;
 }
 
-async function deletePost(id) {
+async function deleteUser(id) {
     const db = await collection();
     const result = await db.deleteOne({ _id: new ObjectId(id) })
     return result;
@@ -58,19 +58,19 @@ async function deletePost(id) {
 
 async function seed() {
     const db = await collection();
-    db.insertMany(data.products);
+    db.insertMany(data.users);
     return 'Seed successful!';
 }
 
 module.exports = {
     COLLECTION_NAME,
     collection,
-    getPosts,
-    getTag,
-    getTimeDate,
-    getPost,
-    addPost,
-    updatePost,
-    deletePost,
+    getUsers,
+    getUserName,
+    getDisplayName,
+    getUser,
+    addUser,
+    updateUser,
+    deleteUser,
     seed
 };
