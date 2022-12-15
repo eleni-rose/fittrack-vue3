@@ -3,6 +3,9 @@ import { api } from "./session";
 export function getPosts() {
   return api<ListEnvelope<Post>>('posts');
 }
+export function searchPosts() {
+  return api<ListEnvelope<Post>>('posts');
+}
 
 export function getPost(id: string) {
   return api<Post>(`posts/${id}`)

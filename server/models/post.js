@@ -25,6 +25,12 @@ async function getPost(id) {
     return data;
 }
 
+async function searchPosts(q) {
+    const db = await collection();
+    const data = await db.find({ username: {$regex: q, $options: 'i'} }).toArray();
+    return { total: data.length, limit: data.length, posts: data };
+}
+
 async function addPost(post) {
     const db = await collection();
     const result = await db.insertOne(post)
@@ -53,9 +59,9 @@ async function getTag() {
     return data;
 }
 
-async function getTimeDate() {
+async function getUsername() {
     const db = await collection();
-    const data = await db.distinct('timeDate')
+    const data = await db.distinct('username')
     return data;
 }
 
@@ -70,10 +76,11 @@ module.exports = {
     collection,
     getPosts,
     getPost,
+    searchPosts,
     addPost,
     updatePost,
     deletePost,
     getTag,
-    getTimeDate,
+    getUsername,
     seed
 };

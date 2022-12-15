@@ -14,11 +14,21 @@ app
         .then(x=> res.status(200).send(x))
         .catch(next);
     })
-    .get('/time', (req, res, next) => {
-        posts.getTimeDate()
-        .then(x=> res.status(200).send(x))
+
+    .get('/username', (req, res, next) => {
+
+        posts.searchPosts(req.params.username)
+        .then(post=> {
+            if (post) {
+                res.status(200).send(post.username);
+            } else {
+                res.status(404).send('404: User not found!');
+            }            
+        })
         .catch(next);
     })
+
+
     .get('/:id', (req, res, next) => {
 
         posts.getPost(req.params.id)
@@ -32,6 +42,7 @@ app
         .catch(next);
         
     })
+
     .post('/', (req, res, next) => {
         posts.addPost(req.body)
         .then(x=> res.status(200).send(x))
