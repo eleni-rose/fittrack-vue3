@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import session, { login, logout } from "../stores/session";
-import { reactive } from "vue";
-import { getPosts, type Post } from "../stores/posts";
+  import session from "../stores/session";
+  import { ref, reactive } from "vue";
+  import { RouterLink } from "vue-router";
+  import { getPosts, type Post } from "../stores/posts";
 
-const posts = reactive([] as Post[]);
-getPosts().then( x=> posts.push(...x.posts));
+  const posts = reactive([] as Post[]);
+  getPosts().then( x => posts.push(...x.posts));
 
 </script>
 
 <template>
+
+  <!-- Direct user to login view if user is not logged in-->
+
   <section class="section is-medium">
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
@@ -22,8 +26,6 @@ getPosts().then( x=> posts.push(...x.posts));
         <!-- Generic post layout -->
 
         <div v-else class="card mt-4 mb-4" v-for="post in posts" :key="post._id">
-
-          <!-- only renders if photo was uploaded -->
 
           <div v-if="(post.postImg !== '' && post.postImg !== null)" class="card-image">
             <figure class="image is-4by3">
@@ -49,9 +51,14 @@ getPosts().then( x=> posts.push(...x.posts));
             <div class="content">
               <p class="ml-2">
                 {{ post.postText }}
-                <a v-if="(post.postTag !=='' && post.postTag !== null)" class="has-text-info-dark">#{{ post.postTag }}</a>
+                <a 
+                  v-if="(post.postTag !=='' && post.postTag !== null)" 
+                  class="has-text-info-dark">#{{ post.postTag }}
+                </a>
               </p>
-              <p class="ml-2 has-text-grey is-size-7">{{ post.timeDate }}</p>
+              <p class="ml-2 has-text-grey is-size-7"> 
+                {{ post.timeDate }}
+              </p>
             </div>
           </div>
 

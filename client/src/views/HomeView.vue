@@ -15,7 +15,8 @@ import session, { login, logout } from "../stores/session";
         </div>
 
         <div v-else class="column"> 
-          <h1 class="title is-1 has-text-centered">Welcome back, {{ session.user.displayName }}</h1>
+          <h1 class="title is-1 has-text-centered">Welcome back, <span class="has-text-link-dark">{{ session.user.email }}</span> </h1>
+
         </div>
 
 

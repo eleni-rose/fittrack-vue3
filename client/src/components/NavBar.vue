@@ -68,7 +68,7 @@ let isActive = ref(false);
             </a>
 
             <div class="navbar-dropdown is-boxed is-right">
-              <router-link class="navbar-item has-text-info" to="/about">Blog</router-link>
+              <router-link class="navbar-item has-text-info" to="/">Blog</router-link>
               <a class="navbar-item has-text-info">Workout</a>
               <a class="navbar-item has-text-info">Image</a>
             </div>

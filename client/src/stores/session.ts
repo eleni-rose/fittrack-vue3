@@ -23,13 +23,14 @@ export async function api<T>(url: string, data: any = null, method?: string ){
     setError(null);
     try {
         return await myFetch<T>(url, data, method);
-    } catch (error:any) {
+    } 
+    catch (error:any) {
         setError(error.message ?? error as string);
         throw error;
-    }finally{
+    }
+    finally {
         session.loading--;
     }
-    return {} as T;
 }
 
 export function addUser(user: User) {
@@ -60,4 +61,9 @@ export interface User {
     password: string;
     displayName?: string;
     profilePic?: string;
+}
+
+export interface Message {
+    text: string;
+    type: 'danger' | 'warning' | 'success' | 'info';
 }

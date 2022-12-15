@@ -13,24 +13,15 @@ async function collection() {
 async function getPosts() {
     const db = await collection();
     const data = await db.find().toArray()
-    return { total: data.length, limit: data.length, posts: data };
+    return { 
+        total: data.length, 
+        limit: data.length, 
+        posts: data };
 }
 
 async function getPost(id) {
     const db = await collection();
     const data = await db.findOne({ _id: new ObjectId(id) })
-    return data;
-}
-
-async function getTag() {
-    const db = await collection();
-    const data = await db.distinct('postTag')
-    return data;
-}
-
-async function getTimeDate() {
-    const db = await collection();
-    const data = await db.distinct('timeDate')
     return data;
 }
 
@@ -56,6 +47,18 @@ async function deletePost(id) {
     return result;
 }
 
+async function getTag() {
+    const db = await collection();
+    const data = await db.distinct('postTag')
+    return data;
+}
+
+async function getTimeDate() {
+    const db = await collection();
+    const data = await db.distinct('timeDate')
+    return data;
+}
+
 async function seed() {
     const db = await collection();
     db.insertMany(data.products);
@@ -66,11 +69,11 @@ module.exports = {
     COLLECTION_NAME,
     collection,
     getPosts,
-    getTag,
-    getTimeDate,
     getPost,
     addPost,
     updatePost,
     deletePost,
+    getTag,
+    getTimeDate,
     seed
 };

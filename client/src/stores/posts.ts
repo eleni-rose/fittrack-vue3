@@ -1,7 +1,7 @@
 import { api } from "./session";
 
 export function getPosts() {
-  return api<Post>('posts');
+  return api<ListEnvelope<Post>>('posts');
 }
 
 export function getPost(id: string) {
@@ -20,9 +20,14 @@ export function deletePost(id: string) {
     return api<{deletedCount:boolean}>(`posts/${id}`,{}, 'DELETE');
 }
 
+export interface ListEnvelope<T> {
+  posts: T[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
 export interface Post {
-posts: any;
-[x: string]: any;
   _id: string;
   username: string;
   displayName: string;
