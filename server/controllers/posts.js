@@ -1,10 +1,15 @@
 const Post = require('../models/post');
 const express = require('express');
+const { default: mongoose } = require('mongoose');
 const app = express.Router();
 
 // Get a single post
 const getPost = async (req, res) => {
     const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json(workouts)
+    }
 
     const post = await Post.findById(id)
 
@@ -39,17 +44,7 @@ const createPost = async (req, res) => {
 // delete post
 // update post
 
-app.post('/', async (req, res) => {
-    const { username, displayName, postText } = req.body
-    try {
-        const post = await Post.create({username, displayName, postText })
-        res.status(200).json(post)
-    }
-    catch (error) {
-        res.status(400).json({error: error.message})
 
-    }
-})
     /*.get('/', (req, res, next) => {
         posts.getPosts()
         .then(x=> res.status(200).send(x))

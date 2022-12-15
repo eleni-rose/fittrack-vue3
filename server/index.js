@@ -51,7 +51,6 @@ app
         res.status(500).send('Uh oh. Something broke.');
     })
     .use('/api/v1/posts', postsController)
-    .use('/api/v1/users', usersController)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', {root: '../client/'});
