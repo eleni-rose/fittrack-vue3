@@ -1,10 +1,56 @@
+const Post = require('../models/post');
 const express = require('express');
 const app = express.Router();
 
-const posts = require('../models/post');
+// Get a single post
+const getPost = async (req, res) => {
+    const { id } = req.params
 
-app
-    .get('/', (req, res, next) => {
+    const post = await Post.findById(id)
+
+    if (!post) {
+        return res.status(404).json({error: '404! Post not found!'})
+    }
+    else {
+        res.status(200).json(post)
+    }
+}
+
+// Get all posts
+
+const getPosts = async (req, res) => {
+    const posts = await Post.find({})
+    res.status(200).json(posts)
+}
+
+// Create a post
+const createPost = async (req, res) => {
+    const {username, displayName, postText } = req.body
+
+    try {
+        const post = await Post.create({ username, displayName, postText })
+        res.status(200).json(post)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+// delete post
+// update post
+
+app.post('/', async (req, res) => {
+    const { username, displayName, postText } = req.body
+    try {
+        const post = await Post.create({username, displayName, postText })
+        res.status(200).json(post)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+
+    }
+})
+    /*.get('/', (req, res, next) => {
         posts.getPosts()
         .then(x=> res.status(200).send(x))
         .catch(next);
@@ -52,5 +98,12 @@ app
         .then(x=> res.status(200).send(x))
         .catch(next);
     });
+    */
+
+module.exports = {
+    getPost,
+    getPosts,
+    createPost
+};
 
 module.exports = app;
