@@ -1,11 +1,23 @@
 <script setup lang="ts">
 
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import LoginBadge from "./NavLogin.vue";
-import session, { login, logout } from "../stores/session";
+import session, { api } from "../stores/session";
+import { searchPosts, type ListEnvelope, type Post } from "../stores/posts";
+import vSelect from "vue-select";
+
+const posts = reactive([] as Post[]);
+searchPosts().then( x => posts.push(...x.posts));
 
 let isActive = ref(false);
+
+const options = ref([] as any[]);
+
+async function fetchOptions (search: String) {
+  const result = await api<ListEnvelope<Post>>(`post/search/${search}`)
+  options.value = result.posts;
+}
 
 </script>
 
@@ -14,8 +26,10 @@ let isActive = ref(false);
     <div class="container">
       <div class="navbar-brand">
 
-        <a class="navbar-item" href="/" alt="Brand">
-          <img src="@/assets/images/weight.png">
+        <a class="navbar-item" 
+            href="/" 
+            alt="Brand">
+          <img src="@/assets/images/weight.png" alt="FitTrack Logo">
         </a>
 
         <a :class="{ 'is-active': isActive }" @click="isActive = !isActive" role="button" class="navbar-burger"
@@ -41,16 +55,22 @@ let isActive = ref(false);
             My Profile
           </router-link>
 
+
+
           <div class="navbar-item">
             <div class="field has-addons">
+
               <p class="control">
-                <input class="input" type="text" placeholder="Find a post">
+                <v-select :options="options" @search="fetchOptions" label="username" placeholder="search">
+                </v-select>
               </p>
+
               <p class="control">
                 <button class="button is-info">
                   Search
                 </button>
               </p>
+
             </div>
           </div>
         </div>
@@ -68,9 +88,7 @@ let isActive = ref(false);
             </a>
 
             <div class="navbar-dropdown is-boxed is-right">
-              <router-link class="navbar-item has-text-info" to="/">Blog</router-link>
-              <a class="navbar-item has-text-info">Workout</a>
-              <a class="navbar-item has-text-info">Image</a>
+              <router-link class="navbar-item has-text-info" to="/new">Create a new post</router-link>
             </div>
           </div>
         </div>
