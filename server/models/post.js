@@ -1,4 +1,4 @@
-const data = require('../data/posts.json');
+/* const data = require('../data/posts.json');
 const { connect } = require('./mongo');
 const { ObjectId } = require('mongodb');
 
@@ -84,3 +84,43 @@ module.exports = {
     getUsername,
     seed
 };
+
+*/
+
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const postSchema = new Schema({
+    
+    username: {
+        type: String,
+        required: false
+    },
+    displayName: {
+        type: String,
+        required: false
+    },
+    postText: {
+        type: String,
+        required: false
+    },
+    postImg: {
+        type: String,
+        required: false
+    },
+    postTag: {
+        type: String,
+        required: false
+    },
+    timeDate: {
+        type: String,
+        required: false
+    },
+    profileImg: {
+        type: String,
+        required: false
+    },
+})
+
+const Post = mongoose.model('Post', postSchema);
+module.exports = Post;

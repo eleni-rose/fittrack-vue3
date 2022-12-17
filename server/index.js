@@ -6,11 +6,33 @@ const app = express()
 const postsController = require('./controllers/posts');
 const usersController = require('./controllers/users');
 
-// Host, Port, dotenv
-
+// Host, Port
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 
+// env
+const dotenv = require("dotenv");
+dotenv.config();
+
+// Mongoose
+const mongoose = require("mongoose");
+const Post = require('./models/post');
+
+mongoose.set('strictQuery', true);
+
+mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+    })
+    .then(() => {
+        console.log("Connected to database at", process.env.PORT)
+    })
+    .catch(err => {
+        console.log("Error connecting to database")
+        console.log(err)
+    })
+
+//
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
@@ -29,7 +51,6 @@ app
         res.status(500).send('Uh oh. Something broke.');
     })
     .use('/api/v1/posts', postsController)
-    .use('/api/v1/users', usersController)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', {root: '../client/dist'});
