@@ -26,8 +26,10 @@ async function fetchOptions (search: String) {
     <div class="container">
       <div class="navbar-brand">
 
-        <a class="navbar-item" href="/" alt="Brand">
-          <img src="@/assets/images/weight.png">
+        <a class="navbar-item" 
+            href="/" 
+            alt="Brand">
+          <img src="@/assets/images/weight.png" alt="FitTrack Logo">
         </a>
 
         <a :class="{ 'is-active': isActive }" @click="isActive = !isActive" role="button" class="navbar-burger"

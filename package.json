@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "build": "npm i -ws && npm run build -ws",
+    "dev": "nodemon --watch server server/index.js",
+    "start": "node server/index.js"
+  },
   "dependencies": {
     "body-parser": "^1.20.1",
     "bulma": "^0.9.4",
@@ -11,5 +16,8 @@
     "node": "^19.2.0",
     "nodemon": "^2.0.20",
     "vite": "^3.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

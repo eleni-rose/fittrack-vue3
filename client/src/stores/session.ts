@@ -7,6 +7,7 @@ const session = reactive( {
     error: null as string | null,
     messages: [] as Message[],
 });
+
 export default session;
 
 export function setError(error: string | null) {

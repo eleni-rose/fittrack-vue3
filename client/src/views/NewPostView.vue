@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import session, { api, isLoading, setError } from "@/stores/session";
-    import { ref, watch } from "vue";
+    import { ref } from "vue";
     import { useRoute, useRouter } from "vue-router";       
 
     import { addPost, getPost, updatePost, type Post } from "@/stores/posts";
@@ -9,9 +9,10 @@
     const router = useRouter();
     
     const post = ref({} as Post);
-    const isNew = ref(route.params.id == 'new')
+    const isNew = ref(route.params.id == undefined)
 
-    if(!isNew.value){
+    if(!isNew.value) {
+        
         getPost(route.params.id as string).then(x => {
             if(x){
                 post.value = x            
@@ -22,23 +23,30 @@
         });        
     }
 
-    async function save(){
+    async function save() {
         try {
-            if(isNew.value){
+
+            if(isNew.value) {
                 const data = await addPost(post.value);
-                session.messages.push({ type: "success", text: `Created post with unique ID: ${data._id}`})
-            }else{
-                const data = await updatePost(post.value._id, post.value);
-                session.messages.push({ type: "success", text: `Successfully updated post ${data._id}`})
+                session.messages.push({ type: "success", text: `Created post by: ${data.username}`})
             }
-            await router.push({ name: 'posts' });
-        } catch (error) {
+
+            else {
+                const data = await updatePost(post.value._id, post.value);
+                session.messages.push({ type: "success", text: `Successfully updated ${data.username}'s post'`})
+            }
+
+            await router.push({ name: 'activity' });
+
+        }
+
+        catch (error) {
             //setError(error as string); being set in the api function
         }
     }
 
-   async function cancel() {
-    await router.push({ name: 'posts' });    
+    async function cancel() {
+        await router.push({ name: 'activity' });    
    } 
 
 </script>
@@ -47,113 +55,95 @@
     <section class="section is-medium">
         <div class="columns">
 
-            <div class="column is-three-quarters">
-                <form class="modal-card" @submit.prevent="save">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">
-                            {{ isNew ? 'New' : 'Edit' }} Post 
+            <div class="column is-half is-offset-one-quarter">
+                <form class="card" @submit.prevent="save"> 
+
+                    <header class="card-header pt-3 is-shadowless">
+                        <p class="card-header-title is-centered has-text-grey has-text-weight-semibold is-size-5">
+                            New workout
                         </p>
-                        
                     </header>
-                    <section class="modal-card-body">
+
+                    <section class="card-content m-2">
                     
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Username</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control is-expanded has-icons-left">
-                                        <input class="input" type="text" placeholder="Username" v-model="post.username">
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Username</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input class="input" type="text" placeholder="johnsmith123" v-model="post.username">
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Display Name</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control is-expanded has-icons-left">
-                                        <input class="input" type="text" placeholder="Display Name" v-model="post.displayName">
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Display name</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input class="input" type="text" placeholder="John Smith" v-model="post.displayName">
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Post Text</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control is-expanded has-icons-left">
-                                        <input class="input" type="text" placeholder="post text" v-model="post.postText">
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Post text</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <textarea class="input" type="text" placeholder="Tell the world about your life!" v-model="post.postText"></textarea>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Post Tag</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control is-expanded has-icons-left">
-                                        <input class="input" type="text" placeholder="post tag" v-model="post.postTag">
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Hashtag</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input class="input" type="text" placeholder="#hashtag" v-model="post.postTag">
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                         
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Post Image</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field  has-addons">
-                                    <div class="control is-expanded">
-                                        <input class="input" type="text" placeholder="x64 encode for image or leave empty for no image" v-model="post.postImg">
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Post image</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="Must be a x64 encode, leave empty for no image" v-model="post.postImg">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Profile Image</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field  has-addons">
-                                    <div class="control is-expanded">
-                                        <input class="input" type="text" placeholder="x64 encode for image or leave empty for no image" v-model="post.profileImg">
+                        <div class="field">
+                            <label class="label"><span class="has-text-grey has-text-weight-normal">Profile photo</span></label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="Must be a x64 encode" v-model="post.profileImg">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        </section>
-                        <footer class="modal-card-foot">
-                            <button class="button is-success">Create post!</button>
-                            <button class="button" @click.prevent="cancel">Cancel</button>
+
+                        <footer class="card-footer p-5">
+
+                            <button class="button card-footer-item mr-5 is-info is-rounded">Create post!</button>
+
+                            <button class="button card-footer-item mr-5 is-light is-rounded" @click.prevent="cancel">Cancel</button>
+
                         </footer>
-                    </form>
-                </div>
+                        
+                    </section>
+                </form>
+            </div>
         </div>
     </section>
 </template>

@@ -67,7 +67,7 @@ async function getUsername() {
 
 async function seed() {
     const db = await collection();
-    db.insertMany(data.products);
+    db.insertMany(data.posts);
     return 'Seed successful!';
 }
 
