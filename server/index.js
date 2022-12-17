@@ -18,7 +18,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/', express.static('../client/dist'));
+app.use('/', express.static('../client'));
 app.use(express.json());
 
 app
@@ -32,7 +32,7 @@ app
     .use('/api/v1/users', usersController)
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html', {root: '../client/dist'});
+    res.sendFile('index.html', {root: '../client'});
 })
 
 app.use((err, req, res, next) => {
